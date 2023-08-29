@@ -1,0 +1,402 @@
+/* Google Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    width: 100%;
+    background: rgb(204, 204, 204);
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h2, h4, p {
+    margin: 0;
+}
+
+.page {
+    background: #fff;
+    display: block;
+    margin: 3rem auto 3rem auto;
+    position: relative;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+
+.page[size="A4"] {
+    width: 21cm;
+    height: 26.8cm;
+    overflow-x: hidden;
+}
+
+/* Top Section */
+
+.top-section {
+    color: #fff;
+    background: linear-gradient(-70deg, rgba(255,117,32,255) 50%, rgba(14,140,128,255) 50%);
+    background-size: 100% 100%;
+    padding: 20px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left; /* Tambahkan properti ini untuk mengatur teks di dalamnya secara horizontal */
+}
+
+.top-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 14%;
+    left: 52.6%;
+    width: 15px;
+    background-color: #fff; /* Atur warna garis sesuai kebutuhan */
+    transform: translateY(-50%) rotate(20deg); /* Miringkan garis pembatas sebesar 45 derajat */
+}
+
+
+.top-section .logo img {
+    filter: brightness(100);
+    width: 100px; /* Lebar gambar yang diinginkan */
+    height: auto; /* Biarkan tingginya mengikuti perbandingan aspek asli */
+}
+
+.top-section .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.address-content h2 {
+    font-size: 41.5px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.address-content p {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.top-section .address, .top-section .logo {
+    width: 13%;
+    height: 100%;
+}
+
+.top-section .contact {
+    width: 60%;
+    height: 100%;
+}
+
+/* Untuk mengatur elemen address dan contact di dalam .top-section */
+.top-section .address {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-section .contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.top-section .address-content {
+    max-width: 275px;
+}
+
+.contact .iconic {
+    margin-left: 225px;
+    margin-top: -15px;
+    font-size: 15px;
+}
+
+.contact .contact-content {
+    max-width: 230px;
+    margin-left: 0px;
+}
+
+.contact-content .email,
+.contact-content .number {
+    display: block;
+
+}
+
+/* Billing Invoice */
+.billing-invoice {
+    padding: 20px;
+    font-size: 20px;
+    display: flex;
+}
+
+.billing-invoice .invoice-kiri .inv {
+    font-weight: 1000;
+    font-size: 40px;
+    color: rgba(255,117,32,255);
+    margin: 0;
+}
+
+.billing-invoice .invoice-kiri .web {
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.bawahnya {
+    max-width: 52%;
+    border-bottom: 3px solid #888; /* Ukuran, tipe, dan warna garis */
+}
+
+
+.billing-invoice .invoice-kiri, .billing-invoice .invoice-kanan {
+    margin-left: 25px;
+    width: 50%;
+    height: 100%;
+}
+
+.billing-invoice .invoice-kanan .inv2 {
+    font-size: 35px;
+    font-weight: 1000;
+    color: rgba(255,117,32,255);
+}
+
+.billing-invoice .invoice-kanan .received {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+
+
+/* Rincian Invoice */
+.rincian-invoice {
+    padding: 20px;
+    font-size: 20px;
+    display: flex;
+}
+
+.rincian-invoice .invoice-kanan,
+.rincian-invoice .invoice-kiri {
+    margin-left: 25px;
+    margin-right: -50px;
+    width: 70%;
+    height: 100%;
+    font-weight: 800;
+    font-size: 17px;
+}
+
+
+.rincian-invoice p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.rincian-invoice .invoice-kanan .span,
+.rincian-invoice .invoice-kiri .span {
+    flex-grow: 1;
+    text-align: right;
+    margin-right: 75px;
+    font-weight: 400;
+}
+
+.rincian-invoice .invoice-kanan .span::before,
+.rincian-invoice .invoice-kiri .span::before {
+    content: ":";
+    white-space: nowrap;
+    margin-right: 15px;
+}
+
+/* Invoice Table */
+.table {
+  padding: 20px 20px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.table table {
+  width: 100%;
+  height: 200px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 18px;
+}
+
+.table th,
+.table td {
+  padding: 5px;
+  text-align: center;
+}
+
+.table th {
+  color: #fff;
+  background-color: rgba(255, 117, 32, 255);
+}
+
+.table th:first-child,
+.table td:first-child {
+  border-radius: 10px 0px 0px 10px;
+}
+
+.table th:last-child,
+.table td:last-child {
+  border-radius: 0px 10px 10px 0px;
+}
+
+/* Mengubah warna latar belakang hanya untuk td pertama dan ketiga */
+.table tr:nth-child(2) td,
+.table tr:nth-child(4) td {
+  color: #000;
+  background-color: #e8e6e6;
+}
+
+.table tr:nth-child(2) td:hover,
+.table tr:nth-child(4) td:hover {
+  color: #fff;
+  background-color: #888;
+}
+
+
+/* Bottom Section */
+.bottom-section {
+    color: #000;
+    padding: 10px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left; /* Mengatur teks di dalamnya secara horizontal */
+}
+
+.bottom-section .payment,
+.bottom-section .status {
+    font-size: 18px;
+    font-weight: 400;
+    width: 40%;
+    height: 85px;
+    margin-left: -5px;
+    background: #e8e6e6;
+    border-radius: 10px;
+}
+
+.bottom-section .payment {
+  margin-right: 90px;
+}
+
+.bottom-section .payment p,
+.bottom-section .status p {
+  margin: 4px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.bottom-section .payment .norek {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.bottom-section .payment:hover,
+.bottom-section .status:hover {
+    color: #fff;
+    background-color: #888;
+}
+
+.bottom-section .status .span {
+  flex-grow: 1;
+  text-align: right;
+  margin-right: 0px;
+  font-weight: 400;
+}
+
+.bottom-section .status .span::before {
+  content: ":";
+  white-space: nowrap;
+  margin-right: 15px;
+}
+
+/* Gaya untuk btn-success (hijau) */
+.btn-success {
+  background-color: #4CAF50; /* Warna latar belakang hijau */
+  color: #fff; /* Warna teks putih */
+  padding: 3px 10px; /* Padding untuk membuatnya lebih menonjol */
+  border: none; /* Hapus border */
+  border-radius: 5px; /* Border radius untuk sudut-sudut */
+  text-align: center; /* Tengahkan teks */
+  text-decoration: none; /* Hapus underlining untuk tautan */
+  display: inline-block; /* Membuatnya tampil seperti elemen inline */
+  font-size: 16px; /* Ukuran font */
+  cursor: pointer; /* Ubah kursor saat dihover */
+}
+
+/* Gaya untuk btn-primary (biru) */
+.btn-primary {
+  background-color: #007BFF; /* Warna latar belakang biru */
+  color: #fff; /* Warna teks putih */
+  padding: 3px 10px; /* Padding untuk membuatnya lebih menonjol */
+  border: none; /* Hapus border */
+  border-radius: 5px; /* Border radius untuk sudut-sudut */
+  text-align: center; /* Tengahkan teks */
+  text-decoration: none; /* Hapus underlining untuk tautan */
+  display: inline-block; /* Membuatnya tampil seperti elemen inline */
+  font-size: 16px; /* Ukuran font */
+  cursor: pointer; /* Ubah kursor saat dihover */
+}
+
+
+/* Gaya untuk btn-warning (kuning) */
+.btn-warning {
+  background-color: #FFC107; /* Warna latar belakang kuning */
+  color: #fff; /* Warna teks putih */
+  padding: 3px 10px; /* Padding untuk membuatnya lebih menonjol */
+  border: none; /* Hapus border */
+  border-radius: 5px; /* Border radius untuk sudut-sudut */
+  text-align: center; /* Tengahkan teks */
+  text-decoration: none; /* Hapus underlining untuk tautan */
+  display: inline-block; /* Membuatnya tampil seperti elemen inline */
+  font-size: 16px; /* Ukuran font */
+  cursor: pointer; /* Ubah kursor saat dihover */
+}
+
+/* Gaya untuk btn-danger (merah) */
+.btn-danger {
+  background-color: #F44336; /* Warna latar belakang merah */
+  color: #fff; /* Warna teks putih */
+  padding: 3px 10px; /* Padding untuk membuatnya lebih menonjol */
+  border: none; /* Hapus border */
+  border-radius: 5px; /* Border radius untuk sudut-sudut */
+  text-align: center; /* Tengahkan teks */
+  text-decoration: none; /* Hapus underlining untuk tautan */
+  display: inline-block; /* Membuatnya tampil seperti elemen inline */
+  font-size: 16px; /* Ukuran font */
+  cursor: pointer; /* Ubah kursor saat dihover */
+}
+
+
+.penutup {
+    position: absolute; /* Memberikan posisi absolut pada footer */
+    bottom: 0; /* Meletakkan footer di bagian paling bawah div */
+    background-color: rgba(255,117,32,255);
+    color: #fff; /* Warna teks footer */
+    text-align: left; /* Mengatur teks di tengah */
+    padding: 10px; /* Ruang di sekitar konten footer */
+    width: 100%; /* Lebar penuh */
+}
+
+.penutup a {
+    color: #fff; /* Warna tautan */
+    align-items: center;
+    text-decoration: none; /* Hapus garis bawah pada tautan */
+    margin: 0px; /* Ruang antara tautan jika lebih dari satu */
+}
+
+.penutup ion-icon {
+    margin: 0 0 0 90px; /* Memberikan jarak 10px ke kanan untuk ikon */
+}
+
+/* Gaya cetak khusus*/
+@media print {
+  body {
+    font-size: 12pt;
+  }
+}
