@@ -15,8 +15,8 @@ class KotaSeeder extends Seeder
     public function run(): void
     {
         Kota::create([
-            'kota'  => 'Sidoarjo',
-            'harga'  => 100000,
+            'kota'  => 'Malang',
+            'harga'  => 0,
         ]);
     }
 }

@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaksi extends Model
 {
+
+    protected $table = 'transaksi';
     public static function generateRandomId()
     {
         // Generate a random number with 7 digits

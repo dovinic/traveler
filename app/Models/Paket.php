@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Paket extends Model
 {
 
-    protected $table = 'pakets';
+    protected $table = 'paket';
 
     use HasApiTokens, HasFactory, Notifiable;
 

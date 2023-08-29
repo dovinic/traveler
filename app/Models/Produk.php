@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Produk extends Model
 {
 
-    protected $table = 'produks';
+    protected $table = 'produk';
     public function paket()
     {
         return $this->belongsTo(Paket::class, 'id_paket');

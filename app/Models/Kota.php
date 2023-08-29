@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Kota extends Model
 {
 
-    protected $table = 'kotas';
+    protected $table = 'kota';
 
     use HasApiTokens, HasFactory, Notifiable;
 
