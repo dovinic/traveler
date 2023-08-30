@@ -44,6 +44,9 @@ Route::post('/send-order',[OrderController::class, 'send'])->name('order.send');
 Route::get('/get-price/{id}', [OrderController::class, 'getPrice'])->name('get-price');
 Route::post('/cari-transaksi',[OrderController::class, 'cari'])->name('cari');
 
+Route::get('/cari-data/{nomerhp}',[OrderController::class, 'cariData'])->name('cariData');
+Route::get('/findInvoice/{id}',[OrderController::class, 'findInvoice'])->name('findInvoice');
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'] , function(){
 
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');

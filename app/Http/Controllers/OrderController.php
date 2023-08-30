@@ -112,6 +112,21 @@ class OrderController extends Controller
         }
     }
 
+    public function findInvoice(Request $request,$id) {
+        $allpaket = Paket::get();
+        $transaksi = Transaksi::where('phone_number', $id)->get();
+        $tanggalBerangkat = $transaksi->map(function ($transaksi) {
+            return Carbon::parse($transaksi->tgl_berangkat)->format('d F Y');
+        });
+        $tgl_berangkat = $tanggalBerangkat;
+
+        if ($transaksi->isNotEmpty()) {
+            return view('findInvoice',compact('transaksi','tgl_berangkat','allpaket'));
+        } else {
+            return view('riwayat',compact('transaksi','allpaket'));
+        }
+    }
+
     public function riwayat() {
         $transaksi = Transaksi::get();
         $allpaket = Paket::get();
@@ -131,6 +146,18 @@ class OrderController extends Controller
 
         return redirect()->route('history',['id' => $id_transaksi]);
     }
+
+    public function cariData($nomerhp)
+    {
+        $result = Transaksi::where('phone_number', $nomerhp)->get();
+
+        if ($result) {
+            return response()->json($result);
+        } else {
+            return response()->json(['message' => 'Data tidak ditemukan'], 404);
+        }
+    }
+
 
     public function invoice(Request $request,$id) {
         $allpaket = Paket::get();
