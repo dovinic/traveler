@@ -11,11 +11,11 @@ class PaketController extends Controller
 
     public function paket() {
         $data = Paket::get();
-        return view('paket/paket', compact('data'));
+        return view('admin.paket.paket', compact('data'));
     }
 
     public function create() {
-        return view('paket/create');
+        return view('admin.paket.create');
     }
 
     public function store(Request $request) {
@@ -36,7 +36,7 @@ class PaketController extends Controller
     public function edit(Request $request,$id) {
         $data = Paket::find($id);
 
-        return view('paket/edit', compact('data'));
+        return view('admin.paket.edit', compact('data'));
     }
 
     public function update(Request $request,$id) {

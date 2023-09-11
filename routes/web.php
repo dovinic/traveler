@@ -4,10 +4,12 @@ use App\Models\Transaksi;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KotaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\TestiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransaksiController;
 
@@ -32,13 +34,14 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('', [OrderController::class, 'index'])->name('dashboard2');
+Route::get('', [OrderController::class, 'index'])->name('dashboard');
 Route::get('/order', [OrderController::class, 'directorder'])->name('directorder');
 Route::get('/order/{id}',[OrderController::class, 'order'])->name('order');
 Route::get('/history/{id}',[OrderController::class, 'history'])->name('history');
 Route::get('/history',[OrderController::class, 'riwayat'])->name('historys');
-Route::get('/invoice/{id}',[OrderController::class, 'invoice'])->name('invoice');
+Route::get('/invoice/{id}',[TransaksiController::class, 'invoice'])->name('invoice');
 Route::put('/proof/{id}',[OrderController::class, 'proof'])->name('proof');
+Route::put('/ulasan/{id}',[OrderController::class, 'ulasan'])->name('ulasan');
 
 Route::post('/send-order',[OrderController::class, 'send'])->name('order.send');
 Route::get('/get-price/{id}', [OrderController::class, 'getPrice'])->name('get-price');
@@ -72,14 +75,23 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'] ,
     Route::put('/update-produk/{id}',[ProdukController::class, 'update'])->name('produk.update');
     Route::delete('/delete-produk/{id}',[ProdukController::class, 'delete'])->name('produk.delete');
 
+    Route::get('/kota',[KotaController::class, 'kota'])->name('kota');
+    Route::get('/create-kota',[KotaController::class, 'create'])->name('kota.create');
+    Route::post('/store-kota',[KotaController::class, 'store'])->name('kota.store');
+    Route::get('/edit-kota/{id}',[KotaController::class, 'edit'])->name('kota.edit');
+    Route::put('/update-kota/{id}',[KotaController::class, 'update'])->name('kota.update');
+    Route::delete('/delete-kota/{id}',[KotaController::class, 'delete'])->name('kota.delete');
+
     Route::get('/transaksi',[TransaksiController::class, 'transaksi'])->name('transaksi');
     Route::get('/edit-transaksi/{id}',[TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::put('/update-transaksi/{id}',[TransaksiController::class, 'update'])->name('transaksi.update');
     Route::delete('/delete-transaksi/{id}',[TransaksiController::class, 'delete'])->name('transaksi.delete');
     Route::get('/view-file/{filename}', [TransaksiController::class, 'viewFile'])->name('view-file');
 
-    Route::get('/log',[LogController::class, 'log'])->name('log');
+    Route::get('/testimoni',[TestiController::class, 'testimoni'])->name('testimoni');
+    Route::put('/update-testimoni/{id}',[TestiController::class, 'update'])->name('testimoni.update');
 
+    Route::get('/log',[LogController::class, 'log'])->name('log');
     Route::get('/get-products-by-paket/{id}', [ProdukController::class, 'getProductsByPaket']);
 });
 

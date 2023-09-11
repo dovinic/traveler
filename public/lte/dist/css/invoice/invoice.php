@@ -18,7 +18,7 @@
                     <p> CREATIVE.COM </p>
                 </div>
             </div>
-            
+
             <div class="contact">
                 <div class="iconic">
                     <ion-icon name="call"></ion-icon>
@@ -26,8 +26,8 @@
                     <ion-icon name="location"></ion-icon>
                 </div>
                 <div class="contact-content">
-                    <div class="email"> +62 857-5584-2891 </div>
-                    <div class="number"> bromocreative@gmail.com </div>
+                    <div class="number"> +62 857-5584-2891 </div>
+                    <div class="email"> bromocreative@gmail.com </div>
                     <div class="alamat"> Jl.Simpang Danau Yamur no.60 Sawojajar Malang, Jawa Timur </div>
                 </div>
             </div>
@@ -95,9 +95,9 @@
                 AN CITRA AYU DIYAH PITALOKA
             </div>
             <div class="status">
-                
+
             </div>
-            
+
         </div>
 
         <div class="penutup">
@@ -108,9 +108,9 @@
             <ion-icon name="logo-whatsapp"></ion-icon>
             <a href="https://api.whatsapp.com/send?phone=6281331753531">0813-3175-3531</a>
         </div>
-        
+
     </div>
-    
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

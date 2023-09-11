@@ -30,7 +30,7 @@ class LogController extends Controller
             $log->diff = $this->hitungSelisihWaktu($log->created_at);
         }
 
-        return view('log/log', compact('logs', 'transaksi'));
+        return view('admin.log.log', compact('logs', 'transaksi'));
     }
 
     private function hitungSelisihWaktu($createdAt) {

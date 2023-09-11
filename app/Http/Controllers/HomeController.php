@@ -19,7 +19,7 @@ class HomeController extends Controller
         $totaltransaksi = Transaksi::count();
         $pemasukan = Transaksi::where('status', 'Lunas')->sum('total_harga');
         $paket = Paket::get();
-        return view('dashboard', compact('produk', 'totalproduk', 'paket', 'totalpaket', 'namauser', 'totaltransaksi','pemasukan'));
+        return view('admin.dashboard', compact('produk', 'totalproduk', 'paket', 'totalpaket', 'namauser', 'totaltransaksi','pemasukan'));
     }
 
 }

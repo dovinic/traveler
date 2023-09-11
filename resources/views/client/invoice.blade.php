@@ -53,7 +53,13 @@
             </div>
             <div class="invoice-kanan">
                 <p>Phone<span class="span">+62 {{ $buyer->phone_number }}</span></p>
-                <p>Trip<span class="span">Bromo Midnight</span></p>
+                <p>Trip<span class="span">
+                    @foreach ($allpaket as $pkt)
+                        @if ($buyer->id_paket == $pkt->id)
+                            {{ $pkt->name }}
+                        @endif
+                    @endforeach
+                </span></p>
                 <p>Penjemputan<span class="span">{{ $buyer->penjemputan }}</span></p>
             </div>
         </div>
@@ -61,26 +67,44 @@
         <div class="table">
             <table>
                 <tr>
-                    <th>Nama Paket</th>
-                    <th>Jumlah Penumpang</th>
-                    <th>Total Harga</th>
+                    <th>#</th>
+                    <th>Nama Item</th>
+                    <th>Harga</th>
                 </tr>
                 <tr>
+                    <td>1</td>
                     <td>
                         @foreach ($allpaket as $pkt)
                             @if ($buyer->id_paket == $pkt->id)
                                 {{ $pkt->name }}
                             @endif
                         @endforeach
+                        @foreach ($allproduk as $prk)
+                            @if ($buyer->id_produk == $prk->id)
+                                ({{ $prk->nama_produk }})
+                            @endif
+                        @endforeach
                     </td>
                     <td>
                         @foreach ($allproduk as $prk)
                             @if ($buyer->id_produk == $prk->id)
-                                {{ $prk->nama_produk }}
+                                {{ formatRupiah($prk->harga) }}
                             @endif
                         @endforeach
                     </td>
-                    <td>{{ formatRupiah($buyer->total_harga) }}</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        Tarif Jemput ({{ $buyer->penjemputan }})
+                    </td>
+                    <td>
+                        @foreach ($kota as $city)
+                            @if ($buyer->penjemputan == $city->kota)
+                                {{ formatRupiah($city->harga) }}
+                            @endif
+                        @endforeach
+                    </td>
                 </tr>
                 <tr>
                     <td>-</td>
@@ -125,12 +149,7 @@
         </div>
 
         <div class="penutup">
-            <ion-icon name="logo-instagram"></ion-icon>
-            <a href="https://www.instagram.com/bromocreative" target="_blank">bromocreative</a>
-            <ion-icon name="globe-outline"></ion-icon>
-            <a href="https://www.bromocreative.com" target="_blank">www.bromocreative.com</a>
-            <ion-icon name="logo-whatsapp"></ion-icon>
-            <a href="https://api.whatsapp.com/send?phone=6281331753531" target="_blank">0813-3175-3531</a>
+            <img src="{{ asset('lte\dist\img\footer.png') }}">
         </div>
 
     </div>
@@ -138,7 +157,12 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script>
-        window.addEventListener("load", window.print());
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                window.print();
+            }, 1000); // Jeda selama 1 detik sebelum mencetak
+        });
     </script>
+
 </body>
 </html>

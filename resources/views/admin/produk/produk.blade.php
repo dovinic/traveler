@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Data User</h1>
+            <h1 class="m-0">Data Produk</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Data User</li>
+              <li class="breadcrumb-item active">Data Produk</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,7 +29,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">
-                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary mb-3">Tambah User</a>
+                    <a href="{{ route('admin.produk.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
                   </h3>
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -49,7 +49,9 @@
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Nama</th>
+                        <th>Paket</th>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -57,9 +59,17 @@
                         @foreach ($data as $d)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $d->name }}</td>
+                                    <td>
+                                        @foreach ($namapaket as $pkt)
+                                            @if ($d->id_paket == $pkt->id)
+                                                {{ $pkt->name }}
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                <td>{{ $d->nama_produk }}</td>
+                                <td>{{ formatRupiah($d->harga) }}</td>
                                 <td>
-                                    <a href="{{ route('admin.user.edit',['id' => $d->id]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                                    <a href="{{ route('admin.produk.edit',['id' => $d->id]) }}" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
                                     <a href="" data-toggle="modal" data-target="#modal-hapus{{ $d->id }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Hapus</a>
                                 </td>
                             </tr>
@@ -73,14 +83,23 @@
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                      <p>Mau Hapus User <b>{{ $d->name }}</b>? Yakin Gak Kids?</p>
+                                        <p>
+                                            @foreach ($namapaket as $pkt)
+                                                @if ($d->id_paket == $pkt->id)
+                                                    Mau Hapus <b>{{ $pkt->name }}
+                                                @endif
+                                            @endforeach
+                                        ({{ $d->nama_produk }})</b>?
+                                        </p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <form action="{{ route('admin.user.delete',['id' => $d->id]) }}" method="POST">
+                                        <form action="{{ route('admin.produk.delete',['id' => $d->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Gajadi</button>
-                                            <button type="submit" class="btn btn-danger">Yakin la kids</button>
+                                            <div class="justify-content-between">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </div>
                                         </form>
                                     </div>
                                   </div>

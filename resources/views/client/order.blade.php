@@ -122,9 +122,9 @@
               </div>
                 <div class="card-body">
                     <label for="info">Keterangan :</label>
-                    <textarea class="form-control form-control-lg" id="info" name="info" rows="6" readonly>-</textarea>
+                    <textarea class="form-control form-control-lg" id="info" name="info" rows="8" readonly>-</textarea>
                     <br>
-                    <label for="price">Total Harga:</label>
+                    <label for="price">Harga Paket:</label>
                     <input type="text" class="form-control form-control-lg" id="price" name="price" disabled placeholder="-">
                 </div>
                 <!-- /.card-body -->

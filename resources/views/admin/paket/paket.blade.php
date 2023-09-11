@@ -73,14 +73,16 @@
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                      <p>Mau Hapus Paket <b>{{ $d->name }}</b>? Yakin Gak Kids?</p>
+                                      <p>Mau Hapus <b>{{ $d->name }}</b>?</p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <form action="{{ route('admin.paket.delete',['id' => $d->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Gajadi</button>
-                                            <button type="submit" class="btn btn-danger">Yakin la kids</button>
+                                            <div class="justify-content-between">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </div>
                                         </form>
                                     </div>
                                   </div>

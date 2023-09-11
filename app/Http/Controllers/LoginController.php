@@ -16,6 +16,13 @@ class LoginController extends Controller
         $request->validate([
             'nama'      => 'required',
             'password'  => 'required',
+            'g-recaptcha-response' => ['required', 'captcha'],
+        ],
+        [
+            'nama.required'      => 'Username Wajib diisi!',
+            'password.required'  => 'Password Wajib diisi!',
+            'g-recaptcha-response.required' => 'Captcha Wajib diverifikasi!',
+            'g-recaptcha-response.captcha' => 'Captcha Error! Cobain Lagi atau Lapor Admin.',
         ]);
 
         $data = [

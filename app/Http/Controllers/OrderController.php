@@ -7,6 +7,7 @@ use App\Models\Kota;
 use App\Models\Log;
 use App\Models\Paket;
 use App\Models\Produk;
+use App\Models\Testimoni;
 use App\Models\Transaksi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -21,17 +22,18 @@ class OrderController extends Controller
         $allpaket = Paket::get();
         $kota = Kota::get();
         $produk = Produk::where('id_paket', $id)->get();
-        return view('order',compact('paket', 'produk', 'allpaket','kota'));
+        return view('client.order',compact('paket', 'produk', 'allpaket','kota'));
     }
 
     public function directorder() {
-        return redirect()->route('dashboard2');
+        return redirect()->route('dashboard');
     }
 
     public function index() {
         $totaltransaksi = Transaksi::where('status', 'Lunas')->count();
         $allpaket = Paket::get();
-        return view('dashboard2', compact('allpaket','totaltransaksi'));
+        $testi = Testimoni::get();
+        return view('client.dashboard', compact('allpaket','totaltransaksi','testi'));
     }
 
     public function send(Request $request) {
@@ -39,7 +41,7 @@ class OrderController extends Controller
             'nama' => 'required',
             'id_paket' => 'required',
             'id_produk' => 'required',
-            'tgl_berangkat' => 'required|date_format:m/d/Y',
+            'tgl_berangkat' => 'required|date_format:m/d/Y|after_or_equal:today',
             'phone_number' => ['required', 'regex:/^8\d+$/'],
             'kota'          => 'required',
             'g-recaptcha-response' => ['required', 'captcha'],
@@ -48,11 +50,12 @@ class OrderController extends Controller
             'nama.required' => 'Nama wajib diisi',
             'id_produk.required' => 'Jumlah Orang wajib diisi',
             'tgl_berangkat.required' => 'Tanggal Berangkat wajib diisi',
+            'tgl_berangkat.after_or_equal' => 'Tanggal Berangkat Harus Hari ini atau Next Day.',
             'phone_number.required' => 'Nomor HP wajib diisi',
             'phone_number.regex' => 'Nomor telepon harus dimulai dengan angka 8.',
             'kota.required' => 'Lokasi Penjemputan Wajib diisi',
-            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
-            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+            'g-recaptcha-response.required' => 'Captcha Wajib diverifikasi!',
+            'g-recaptcha-response.captcha' => 'Captcha Error! Cobain Lagi atau Lapor Admin.',
         ]
         );
 
@@ -98,17 +101,17 @@ class OrderController extends Controller
         $allpaket = Paket::get();
         $allproduk = Produk::get();
         $kota = Kota::get();
-        $transaksi = Transaksi::where('id_transaksi', $id)->get();
-        $tanggalBerangkat = $transaksi->map(function ($transaksi) {
-            return Carbon::parse($transaksi->tgl_berangkat)->format('d F Y');
-        });
-        $tgl_berangkat = $tanggalBerangkat;
+        $findtransaksi = Transaksi::where('id_transaksi', $id)->get();
 
-        if ($transaksi->isNotEmpty()) {
-            $invoice = $transaksi[0]->id_transaksi;
-            return view('history',compact('transaksi','allpaket','allproduk','invoice','tgl_berangkat','kota'));
+        if ($findtransaksi->isNotEmpty()) {
+            $transaksi = Transaksi::where('id_transaksi', $id)->firstOrFail();
+            $tanggalBerangkat = Carbon::parse($transaksi->tgl_berangkat)->format('d F Y');
+            $tgl_berangkat = $tanggalBerangkat;
+            $today = Carbon::now();
+            $testi = Testimoni::where('invoice', $transaksi->id_transaksi)->first();
+            return view('client.history',compact('transaksi','allpaket','allproduk','tgl_berangkat','kota','findtransaksi','today','testi'));
         } else {
-            return view('riwayat',compact('transaksi','allpaket'));
+            return view('client.riwayat',compact('allpaket', 'findtransaksi'));
         }
     }
 
@@ -121,16 +124,16 @@ class OrderController extends Controller
         $tgl_berangkat = $tanggalBerangkat;
 
         if ($transaksi->isNotEmpty()) {
-            return view('findInvoice',compact('transaksi','tgl_berangkat','allpaket'));
+            return view('client.findInvoice',compact('transaksi','tgl_berangkat','allpaket'));
         } else {
-            return view('riwayat',compact('transaksi','allpaket'));
+            return view('client.riwayat',compact('transaksi','allpaket'));
         }
     }
 
     public function riwayat() {
         $transaksi = Transaksi::get();
         $allpaket = Paket::get();
-        return view('riwayat',compact('allpaket','transaksi'));
+        return view('client.riwayat',compact('allpaket','transaksi'));
     }
 
     public function cari(Request $request) {
@@ -155,26 +158,6 @@ class OrderController extends Controller
             return response()->json($result);
         } else {
             return response()->json(['message' => 'Data tidak ditemukan'], 404);
-        }
-    }
-
-
-    public function invoice(Request $request,$id) {
-        $allpaket = Paket::get();
-        $allproduk = Produk::get();
-        $transaksi = Transaksi::where('id_transaksi', $id)->get();
-        $kota = Kota::get();
-        $tgl_berangkat = $transaksi->map(function ($transaksi) {
-            return Carbon::parse($transaksi->tgl_berangkat)->format('d F Y');
-        });
-        $tgl_invoice = $transaksi->map(function ($transaksi) {
-            return Carbon::parse($transaksi->created_at)->format('d F Y');
-        });
-        $buyer = $transaksi[0];
-        if ($transaksi->isNotEmpty()) {
-            return view('invoice',compact('transaksi','allpaket','allproduk','buyer','tgl_berangkat','tgl_invoice','kota'));
-        } else {
-            return view('riwayat',compact('transaksi','allpaket'));
         }
     }
 
@@ -222,5 +205,36 @@ class OrderController extends Controller
         return redirect()->route('history',['id' => $id])->with('success', 'Pesanan berhasil diperbarui.');
     }
 
+    public function ulasan(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'ulasan' => 'required|min:5|max:100', // Memastikan panjang ulasan antara 5 hingga 100 karakter.
+        ],
+        [
+            'ulasan.required' => 'Wajib Isi Ulasan!',
+            'ulasan.min' => 'Ulasan harus terdiri dari setidaknya :min karakter.',
+            'ulasan.max' => 'Ulasan tidak boleh melebihi :max karakter.',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $transaksi = Transaksi::where('id_transaksi', $id)->firstOrFail();
+        $paket = Paket::where('id', $transaksi->id_paket)->firstOrFail();
+
+        $data = [
+            'nama' => $transaksi->nama,
+            'invoice' => $transaksi->id_transaksi,
+            'ulasan' => $request->ulasan,
+            'paket' => $paket->name,
+            'action' => 'Hidden',
+        ];
+
+        Testimoni::create($data);
+
+        return redirect()->route('history',['id' => $id])->with('success', 'Terima Kasih telah memberi Ulasan.');
+    }
 }

@@ -20,14 +20,14 @@ class ProdukController extends Controller
     public function produk() {
         $data = Produk::get();
         $namapaket = Paket::get();
-        return view('produk/produk', compact('data', 'namapaket'));
+        return view('admin.produk.produk', compact('data', 'namapaket'));
     }
 
     public function create() {
 
         $data = Produk::get();
         $namapaket = Paket::get();
-        return view('produk/create', compact('data', 'namapaket'));
+        return view('admin.produk.create', compact('data', 'namapaket'));
     }
 
     public function store(Request $request) {
@@ -54,7 +54,7 @@ class ProdukController extends Controller
     public function edit(Request $request,$id) {
         $data = Produk::find($id);
         $namapaket = Paket::get();
-        return view('produk/edit', compact('data', 'namapaket'));
+        return view('admin.produk.edit', compact('data', 'namapaket'));
     }
 
     public function update(Request $request,$id) {

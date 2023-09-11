@@ -12,11 +12,11 @@ class UserController extends Controller {
 
         $data = User::get();
 
-        return view('user/user', compact('data'));
+        return view('admin.user.user', compact('data'));
     }
 
     public function create() {
-        return view('user/create');
+        return view('admin.user.create');
     }
 
     public function store(Request $request) {
@@ -39,7 +39,7 @@ class UserController extends Controller {
     public function edit(Request $request,$id) {
         $data = User::find($id);
 
-        return view('user/edit', compact('data'));
+        return view('admin.user.edit', compact('data'));
     }
 
     public function update(Request $request,$id) {

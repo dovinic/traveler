@@ -15,8 +15,13 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     public static function generateRandomId()
     {
-        // Generate a random number with 7 digits
-        $randomId = str_pad(rand(1, 99999999), 8, '0', STR_PAD_LEFT);
+        $timestamp = now()->format('dm');
+
+        // Generate a random number with 7 digits and left-pad with zeros if necessary
+        $randomNumber = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+
+        // Combine timestamp, random number, and a separator (for example, '-')
+        $randomId = $timestamp . $randomNumber;
 
         return $randomId;
     }

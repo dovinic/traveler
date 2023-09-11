@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Kota;
 use App\Models\Paket;
 use App\Models\Produk;
 use App\Models\Transaksi;
@@ -16,7 +18,7 @@ class TransaksiController extends Controller
         $data = Transaksi::get();
         $namapaket = Paket::get();
         $namaproduk = Produk::get();
-        return view('transaksi/transaksi', compact('data', 'namapaket', 'namaproduk'));
+        return view('admin.transaksi.transaksi', compact('data', 'namapaket', 'namaproduk'));
     }
 
     public function edit(Request $request,$id) {
@@ -25,7 +27,7 @@ class TransaksiController extends Controller
         $namaproduk = Produk::get();
         $produk = Produk::where('id_paket', '1')->first();
 
-        return view('transaksi/edit', compact('data', 'namapaket', 'namaproduk'));
+        return view('admin.transaksi.edit', compact('data', 'namapaket', 'namaproduk'));
     }
 
     public function update(Request $request,$id) {
@@ -66,6 +68,25 @@ class TransaksiController extends Controller
             return response()->file(storage_path('app/' . $filePath));
         } else {
             abort(404);
+        }
+    }
+
+    public function invoice(Request $request,$id) {
+        $allpaket = Paket::get();
+        $allproduk = Produk::get();
+        $transaksi = Transaksi::where('id_transaksi', $id)->get();
+        $kota = Kota::get();
+        $tgl_berangkat = $transaksi->map(function ($transaksi) {
+            return Carbon::parse($transaksi->tgl_berangkat)->format('d F Y');
+        });
+        $tgl_invoice = $transaksi->map(function ($transaksi) {
+            return Carbon::parse($transaksi->created_at)->format('d F Y');
+        });
+        if ($transaksi->isNotEmpty()) {
+            $buyer = $transaksi[0];
+            return view('client.invoice',compact('transaksi','allpaket','allproduk','buyer','tgl_berangkat','tgl_invoice','kota'));
+        } else {
+            return view('client.riwayat',compact('transaksi','allpaket'));
         }
     }
 }

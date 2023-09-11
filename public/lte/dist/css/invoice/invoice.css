@@ -25,7 +25,7 @@ h2, h4, p {
 
 .page[size="A4"] {
     width: 21cm;
-    height: 26.8cm;
+    height: 29.7cm;
     overflow-x: hidden;
 }
 
@@ -80,13 +80,8 @@ h2, h4, p {
     margin: 0;
 }
 
-.top-section .address, .top-section .logo {
-    width: 13%;
-    height: 100%;
-}
-
-.top-section .contact {
-    width: 60%;
+.top-section .logo {
+    width: 8%;
     height: 100%;
 }
 
@@ -97,15 +92,16 @@ h2, h4, p {
     align-items: center;
 }
 
+.top-section .address-content {
+    max-width: 275px;
+}
+
 .top-section .contact {
+    width: 60%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-
-.top-section .address-content {
-    max-width: 275px;
 }
 
 .contact .iconic {
@@ -117,6 +113,7 @@ h2, h4, p {
 .contact .contact-content {
     max-width: 230px;
     margin-left: 0px;
+    color: white;
 }
 
 .contact-content .email,
@@ -246,13 +243,15 @@ h2, h4, p {
 
 /* Mengubah warna latar belakang hanya untuk td pertama dan ketiga */
 .table tr:nth-child(2) td,
-.table tr:nth-child(4) td {
+.table tr:nth-child(4) td,
+.table tr:nth-child(6) td {
   color: #000;
   background-color: #e8e6e6;
 }
 
 .table tr:nth-child(2) td:hover,
-.table tr:nth-child(4) td:hover {
+.table tr:nth-child(4) td:hover,
+.table tr:nth-child(6) td:hover {
   color: #fff;
   background-color: #888;
 }
@@ -373,25 +372,30 @@ h2, h4, p {
 }
 
 
-.penutup {
+.penutup img {
     position: absolute; /* Memberikan posisi absolut pada footer */
     bottom: 0; /* Meletakkan footer di bagian paling bawah div */
-    background-color: rgba(255,117,32,255);
-    color: #fff; /* Warna teks footer */
-    text-align: left; /* Mengatur teks di tengah */
-    padding: 10px; /* Ruang di sekitar konten footer */
     width: 100%; /* Lebar penuh */
 }
 
-.penutup a {
-    color: #fff; /* Warna tautan */
-    align-items: center;
-    text-decoration: none; /* Hapus garis bawah pada tautan */
-    margin: 0px; /* Ruang antara tautan jika lebih dari satu */
-}
+@media screen and (max-width: 720px) {
 
-.penutup ion-icon {
-    margin: 0 0 0 90px; /* Memberikan jarak 10px ke kanan untuk ikon */
+  .top-section .contact {
+      width: 50%; /* Ubah lebar menjadi 100% ketika lebar layar kurang dari 720px */
+  }
+
+  .contact .iconic {
+    margin-left: 175px;
+    margin-top: -10px;
+    font-size: 15px;
+  }
+
+  .contact .contact-content {
+    max-width: 700px;
+    margin-left: 0px;
+    font-size: 14px;
+  }
+
 }
 
 /* Gaya cetak khusus*/
@@ -400,3 +404,17 @@ h2, h4, p {
     font-size: 12pt;
   }
 }
+
+@media print and (max-width: 500px) {
+
+  .contact .contact-content {
+    max-width: 700px;
+  }
+
+  .page[size="A4"] {
+    width: 21cm;
+    height: 26.5cm;
+    overflow-x: hidden;
+  }
+}
+
